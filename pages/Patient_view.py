@@ -8,7 +8,6 @@ import streamlit.components.v1 as components
 from PIL import Image
 from twilio.rest import Client
 
-
 u = "https://i.ibb.co/vm0FhBN/depositphotos-11673257-stock-photo-caduceus-medical-symbol.webp"
 page_title = "Patient"
 
@@ -57,10 +56,7 @@ st.markdown(
     f'<h1 style="color:#000000;font-size:35px;">{"Prescription Upload Screen"}</h1>',
     unsafe_allow_html=True,
 )
-# st.markdown(
-#     f'<h1 style="color:#000000;font-size:24px;">{"Witness the magic by simply uploading an image below and let our model do the talking."}</h1>',
-#     unsafe_allow_html=True,
-# )
+
 st.markdown(
     f'<h1 style="color:#000000;font-size:18px;">{"Please upload your prescription below:"}</h1>',
     unsafe_allow_html=True,
@@ -133,6 +129,30 @@ with open("pages/serialized", "rb") as f:
     model = pickle.load(f)
 
 
+def get_remedies_for_symptoms(symptoms):
+    """
+    Get remedies for symptoms using OpenAI API.
+
+    Args:
+    symptoms (list): List of symptoms.
+
+    Returns:
+    str: Remedies suggested by OpenAI.
+    """
+    prompt = f"Given the symptoms {', '.join(symptoms)}, provide remedies and medication suggestions."
+    response = openai.Completion.create(
+        engine="davinci",
+        prompt=prompt,
+        temperature=0.5,
+        max_tokens=100,
+        top_p=1.0,
+        frequency_penalty=0.0,
+        presence_penalty=0.0,
+        stop=["\n"]
+    )
+    remedies = response.choices[0].text.strip()
+    return remedies
+
 if file is None:
     pass
 else:
@@ -158,9 +178,7 @@ else:
 
     txt = st.text_input("")
 
-
     if st.button("Send Summary"):
-        # check that txt contains a valid phone number
         if txt.startswith("+"):
             send_message(
                 txt,
@@ -176,3 +194,8 @@ else:
                 f'<h1 style="color:#000000;font-size:18px;">{"Please enter a valid phone number"}</h1>',
                 unsafe_allow_html=True,
             )
+
+    # Get remedies for symptoms
+    symptoms = [symptom for symptoms_list in dictionary.values() for symptom in symptoms_list]
+    remedies = get_remedies_for_symptoms(symptoms)
+    st.write("Remedies for symptoms:", remedies)
