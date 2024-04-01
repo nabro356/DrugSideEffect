@@ -103,8 +103,10 @@ def ocr(image_file):
 
     try:
         with Image.open(image_file) as img:
-            # Convert image to RGB mode
+            # Convert image to RGB mode and discard alpha channel if it exists
             rgb_image = img.convert("RGB")
+
+            # Save the RGB image
             rgb_image.save("img.jpg")
 
         img = cv2.imread("img.jpg")
@@ -123,5 +125,6 @@ def ocr(image_file):
     except Exception as e:
         st.error(f"Error performing OCR: {e}")
         return []
+
 
 
