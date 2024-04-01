@@ -78,7 +78,7 @@ def ocr(file):
     list: List of words extracted from the image.
     """
     # Use pytesseract to do OCR on the image
-    text = pytesseract.image_to_string(Image.open(image_path))
+    text = pytesseract.image_to_string(Image.open(image))
 
     # Split the text into words and add each word to a list
     words = text.split()
