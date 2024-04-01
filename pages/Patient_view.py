@@ -67,7 +67,7 @@ st.markdown(
 file = st.file_uploader("", type=["jpg", "png"])
 
 
-"""def ocr(file):
+def ocr(file):
     # Open the image file
     with Image.open(file) as img:
         # Convert the image to RGB mode
@@ -85,38 +85,6 @@ file = st.file_uploader("", type=["jpg", "png"])
     # Perform OCR on the grayscale image
     custom_config = r"--oem 1 --psm 6"
     ocr_text = pytesseract.image_to_string(gray_img, config=custom_config)
-
-    # Extract drug names from the OCR text
-    drugs_updated = []
-    drugs_line = next((line for line in ocr_text.split("\n") if line.lower().startswith("drugs")), None)
-    if drugs_line:
-        drugs = drugs_line.split("-")[1].lower().split(",")
-        for drug in drugs:
-            drugs_updated.append(drug.strip())
-
-    return drugs_updated"""
-
-def ocr(file):
-    # Open the image file
-    with Image.open(file) as img:
-        # Convert the image to grayscale
-        gray_img = img.convert("L")
-        
-        # Save the grayscale image as a temporary file
-        temp_file = "temp_img.jpg"
-        gray_img.save(temp_file)
-
-    # Read the grayscale image using OpenCV
-    img = cv2.imread(temp_file)
-
-    # Perform preprocessing (e.g., denoising, thresholding) if necessary
-    # For example:
-    img = cv2.GaussianBlur(img, (5, 5), 0)
-    _, img = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-
-    # Perform OCR on the preprocessed image
-    custom_config = r"--oem 1 --psm 6"
-    ocr_text = pytesseract.image_to_string(img, config=custom_config)
 
     # Extract drug names from the OCR text
     drugs_updated = []
