@@ -152,18 +152,10 @@ else:
     st.graphviz_chart(graph)
 
     def get_remedies_for_symptoms(symptoms):
-
         
-        """
-        Get remedies for symptoms using OpenAI API.
-    
-        Args:
-        symptoms (list): List of symptoms.
-        api_key (str): OpenAI API key.
-    
-        Returns:
-        str: Remedies suggested by OpenAI.
-        """
+        # Flatten the list of lists into a single list of symptoms
+        flat_symptoms = [item for sublist in symptoms for item in sublist]
+
 
         prompt = f"Given the symptoms {', '.join(flat_symptoms)}, provide remedies and medication suggestions."
     
