@@ -185,12 +185,16 @@ else:
     
         response = requests.post(url, headers=headers, json=payload)
         data = response.json()
-        if "choices" in data and data["choices"]:
+        # Convert JSON data to string
+        json_string = json.dumps(jdata)
+        return data
+        
+        '''if "choices" in data and data["choices"]:
             remedies = data["choices"][0]["text"].strip()
             return remedies
         else:
             return "No remedies found."
-        return remedies
+        return remedies'''
         
         '''prompt = f"Given the symptoms {', '.join(flat_symptoms)}, provide remedies and medication suggestions."
         response = openai.Completion.create(
