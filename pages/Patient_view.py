@@ -163,8 +163,31 @@ else:
         openai.api_key = st.secrets["OPENAI_API_KEY"]
 
         flat_symptoms = [item for sublist in symptoms for item in sublist]
-        
+
         prompt = f"Given the symptoms {', '.join(flat_symptoms)}, provide remedies and medication suggestions."
+    
+        url = "https://api.openai.com/v1/completions"
+        headers = {
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json"
+        }
+        payload = {
+            "prompt": prompt,
+            "model": "gpt-3.5-turbo-instruct",  # Use the appropriate engine
+            "max_tokens": 100,
+            "temperature": 0.5,
+            "top_p": 1.0,
+            "frequency_penalty": 0.0,
+            "presence_penalty": 0.0,
+            "stop": ["\n"]
+        }
+    
+        response = requests.post(url, headers=headers, json=payload)
+        data = response.json()
+        remedies = data["choices"][0]["text"].strip()
+        return remedies
+        
+        '''prompt = f"Given the symptoms {', '.join(flat_symptoms)}, provide remedies and medication suggestions."
         response = openai.Completion.create(
             model="davinci-codex",  # Use the appropriate engine
             prompt=prompt,
@@ -176,7 +199,7 @@ else:
             stop=["\n"]
         )
         remedies = response.choices[0].text.strip()
-        print(remedies)
+        print(remedies)'''
         
     get_remedies_for_symptoms(symptoms_list)
         
