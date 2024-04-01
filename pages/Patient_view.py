@@ -149,7 +149,7 @@ else:
 
     st.graphviz_chart(graph)
 
-    def get_remedies_for_symptoms(symptoms, api_key):
+    def get_remedies_for_symptoms(symptoms):
         """
         Get remedies for symptoms using OpenAI API.
     
