@@ -1,8 +1,8 @@
 import streamlit as st
 import streamlit.components.v1 as components
 
-u = "https://cdn.discordapp.com/attachments/1043363043947581533/1043716871876268132/DYGNOS__2_-removebg-preview.png"
-page_title = "DygnosTech"
+u = "https://i.ibb.co/vm0FhBN/depositphotos-11673257-stock-photo-caduceus-medical-symbol.webp"
+page_title = "Dhanvantari"
 
 # Set page title and favicon.
 st.set_page_config(page_title=page_title, page_icon=u)
@@ -13,7 +13,7 @@ def add_bg_from_url():
         f"""
          <style>
          .stApp {{
-             background-image: url("https://cdn.discordapp.com/attachments/1043363043947581533/1043480856150409257/marcel-strauss-iCR53oVMqcs-unsplash.jpg");
+             background-image: url("https://i.ibb.co/HXcJq7g/pngtree-line-light-effect-yellow-and-blue-background-image-771374.jpg");
              background-attachment: fixed;
              background-size: cover
          }}
