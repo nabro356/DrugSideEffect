@@ -129,29 +129,6 @@ with open("pages/serialized", "rb") as f:
     model = pickle.load(f)
 
 
-def get_remedies_for_symptoms(symptoms):
-    """
-    Get remedies for symptoms using OpenAI API.
-
-    Args:
-    symptoms (list): List of symptoms.
-
-    Returns:
-    str: Remedies suggested by OpenAI.
-    """
-    prompt = f"Given the symptoms {', '.join(symptoms)}, provide remedies and medication suggestions."
-    response = openai.Completion.create(
-        engine="davinci",
-        prompt=prompt,
-        temperature=0.5,
-        max_tokens=100,
-        top_p=1.0,
-        frequency_penalty=0.0,
-        presence_penalty=0.0,
-        stop=["\n"]
-    )
-    remedies = response.choices[0].text.strip()
-    return remedies
 
 if file is None:
     pass
@@ -160,6 +137,7 @@ else:
     dictionary = {}
     for i in drugs:
         dictionary[i] = model.predict([i])
+    symptoms_list = list(dictionary.values())
     graph = graphviz.Digraph(format="dot")
     graph.graph_attr["rankdir"] = "LR"
     graph.graph_attr["bgcolor"] = "#00000000"
@@ -170,6 +148,37 @@ else:
             graph.edge(k, i)
 
     st.graphviz_chart(graph)
+
+    def get_remedies_for_symptoms(symptoms, api_key):
+        """
+        Get remedies for symptoms using OpenAI API.
+    
+        Args:
+        symptoms (list): List of symptoms.
+        api_key (str): OpenAI API key.
+    
+        Returns:
+        str: Remedies suggested by OpenAI.
+        """
+        openai.api_key = st.secrets["OPEN_API_KEY"]
+        
+        prompt = f"Given the symptoms {', '.join(symptoms)}, provide remedies and medication suggestions."
+        response = openai.Completion.create(
+            engine="davinci-codex",  # Use the appropriate engine
+            prompt=prompt,
+            max_tokens=100,
+            temperature=0.5,
+            top_p=1.0,
+            frequency_penalty=0.0,
+            presence_penalty=0.0,
+            stop=["\n"]
+        )
+        remedies = response.choices[0].text.strip()
+        print(remedies)
+        
+    get_remedies_for_symptoms(symptoms_list)
+        
+    
 
     st.markdown(
         f'<h1 style="color:#000000;font-size:18px;">{"Mobile number, to receive a summary:"}</h1>',
