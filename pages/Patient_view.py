@@ -15,12 +15,12 @@ st.set_page_config(page_title=page_title, page_icon=u)
 
 
 def send_message(number, content):
-    account_sid = "AC20aaa1377b72c680707b052d7659c45c"
+    account_sid = "ACa708dea8b56ba9ef6951f56d75e394cf"
     auth_token = st.secrets["TWILIO_AUTH"]
     client = Client(account_sid, auth_token)
 
     message = client.messages.create(
-        messaging_service_sid="MG5457bf2f2adfefe7e211ff4440d90d42",
+        messaging_service_sid="MG7c8d7300371ad23e00a21e84bc24926f",
         body=content,
         to=number,
     )
