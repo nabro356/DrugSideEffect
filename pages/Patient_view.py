@@ -161,8 +161,7 @@ else:
         if txt.startswith("+"):
             send_message(
                 txt,
-                """Dear User,
-                    Here is a summary of your prescription:
+                """Dear User,Here is a summary of your prescription:
                     Having """
                 + drugs[0]
                 + " can cause "
