@@ -7,8 +7,8 @@ import streamlit.components.v1 as components
 from PIL import Image
 from twilio.rest import Client
 
-u = "https://cdn.discordapp.com/attachments/1043363043947581533/1043716871876268132/DYGNOS__2_-removebg-preview.png"
-page_title = "Patient View"
+u = "https://i.ibb.co/vm0FhBN/depositphotos-11673257-stock-photo-caduceus-medical-symbol.webp"
+page_title = "Patient"
 
 # Set page title and favicon.
 st.set_page_config(page_title=page_title, page_icon=u)
