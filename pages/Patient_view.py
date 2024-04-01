@@ -4,6 +4,7 @@ import graphviz as graphviz
 import pytesseract
 import openai
 import requests
+import json
 import streamlit as st
 import streamlit.components.v1 as components
 from PIL import Image
