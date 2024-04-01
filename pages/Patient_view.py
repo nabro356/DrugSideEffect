@@ -144,7 +144,7 @@ else:
     graph.graph_attr["bgcolor"] = "#00000000"
 
     for k in dictionary:
-        graph.edge("Alex", k)
+        graph.edge("Ramayya", k)
         for i in dictionary[k]:
             graph.edge(k, i)
 
