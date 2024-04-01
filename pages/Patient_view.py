@@ -160,7 +160,7 @@ else:
         Returns:
         str: Remedies suggested by OpenAI.
         """
-        openai.api_key = st.secrets["OPEN_API_KEY"]
+        openai.api_key = st.secrets["OPENAI_API_KEY"]
         
         prompt = f"Given the symptoms {', '.join(symptoms)}, provide remedies and medication suggestions."
         response = openai.Completion.create(
