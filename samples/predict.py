@@ -149,3 +149,52 @@ def ocr(file):
 
         return words"""
 
+import requests
+
+def get_remedies_for_symptoms(symptoms, api_key):
+    """
+    Get remedies for symptoms using OpenAI API.
+
+    Args:
+    symptoms (list): List of symptoms.
+    api_key (str): OpenAI API key.
+
+    Returns:
+    str: Remedies suggested by OpenAI.
+    """
+    # Flatten the list of lists into a single list of symptoms
+    flat_symptoms = [item for sublist in symptoms for item in sublist]
+    
+    prompt = f"Given the symptoms {', '.join(flat_symptoms)}, provide remedies and medication suggestions."
+    
+    url = "https://api.openai.com/v1/completions"
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json"
+    }
+    payload = {
+        "prompt": prompt,
+        "model": "text-davinci-turbo",  # Use the GPT-Turbo model
+        "max_tokens": 100,
+        "temperature": 0.5,
+        "top_p": 1.0,
+        "frequency_penalty": 0.0,
+        "presence_penalty": 0.0,
+        "stop": ["\n"]
+    }
+    
+    response = requests.post(url, headers=headers, json=payload)
+    data = response.json()
+    
+    # Check if the response contains the generated text
+    if "choices" in data and data["choices"]:
+        completion_text = data["choices"][0]["text"].strip()
+        return completion_text
+    else:
+        return "No remedies found."
+
+
+remedies = get_remedies_for_symptoms(symptoms_list)
+print("Remedies:", remedies)
+
+
