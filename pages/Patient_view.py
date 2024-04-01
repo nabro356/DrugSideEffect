@@ -71,7 +71,7 @@ def ocr(file):
     def get_grayscale(image):
         return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-    with Image.open(image_file) as img:
+    with Image.open(file) as img:
         img.save("img.jpg")
 
     img = cv2.imread("img.jpg")
