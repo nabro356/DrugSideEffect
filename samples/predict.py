@@ -70,7 +70,7 @@ def predict(drug_name):
     return load_model().predict(drug_name)
 
 
-def ocr(file):
+"""def ocr(file):
     def get_grayscale(image):
         return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
@@ -94,4 +94,26 @@ def ocr(file):
     drugs_updated = []
     for i in drugs:
         drugs_updated.append(i.strip())
+    return drugs_updated"""
+
+def ocr(image_file):
+    def get_grayscale(image):
+        return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+    with Image.open(image_file) as img:
+        img.save("img.jpg")
+
+    img = cv2.imread("img.jpg")
+
+    custom_config = r"--oem 1 --psm 6"
+    ocr_text = pytesseract.image_to_string(get_grayscale(img), config=custom_config)
+
+    drugs_updated = []
+    drugs_line = next((line for line in ocr_text.split("\n") if line.startswith("Drugs")), None)
+    if drugs_line:
+        drugs = drugs_line.split("-")[1].lower().split(",")
+        for drug in drugs:
+            drugs_updated.append(drug.strip())
+
     return drugs_updated
+
