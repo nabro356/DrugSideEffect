@@ -170,10 +170,8 @@ else:
         data = response.json()
     
         # Extract the generated text from the response JSON
-        if "choices" in data and data["choices"]:
-            remedies = data["choices"][0]["text"].strip()
-        else:
-            remedies = "No remedies found."
+        
+        remedies = data["choices"][0]["text"].strip()
     
         return remedies
         
