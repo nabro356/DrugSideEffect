@@ -7,3 +7,4 @@ twilio
 streamlit
 pathlib
 graphviz
+openai
