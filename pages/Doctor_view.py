@@ -11,8 +11,8 @@ import streamlit as st
 import streamlit.components.v1 as components
 import tensorflow as tf
 
-u = "https://cdn.discordapp.com/attachments/1043363043947581533/1043716871876268132/DYGNOS__2_-removebg-preview.png"
-page_title = "Doctor View"
+u = "https://i.ibb.co/vm0FhBN/depositphotos-11673257-stock-photo-caduceus-medical-symbol.webp"
+page_title = "Doctor"
 
 # Set page title and favicon.
 st.set_page_config(page_title=page_title, page_icon=u)
