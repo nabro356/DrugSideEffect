@@ -168,7 +168,7 @@ else:
     
         url = "https://api.openai.com/v1/completions"
         headers = {
-            "Authorization": f"Bearer {api_key}",
+            "Authorization": f"Bearer {openai.api_key}",
             "Content-Type": "application/json"
         }
         payload = {
