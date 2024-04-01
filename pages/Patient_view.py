@@ -31,7 +31,7 @@ def add_bg_from_url():
         f"""
          <style>
          .stApp {{
-             background-image: url("https://i.ibb.co/vm0FhBN/depositphotos-11673257-stock-photo-caduceus-medical-symbol.webp");
+             background-image: url("https://i.ibb.co/HXcJq7g/pngtree-line-light-effect-yellow-and-blue-background-image-771374.jpg");
              background-attachment: fixed;
              background-size: cover
          }}
