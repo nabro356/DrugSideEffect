@@ -111,8 +111,8 @@ def ocr(file):
 
     # Perform preprocessing (e.g., denoising, thresholding) if necessary
     # For example:
-    # img = cv2.GaussianBlur(img, (5, 5), 0)
-    # _, img = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+    img = cv2.GaussianBlur(img, (5, 5), 0)
+    _, img = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
 
     # Perform OCR on the preprocessed image
     custom_config = r"--oem 1 --psm 6"
