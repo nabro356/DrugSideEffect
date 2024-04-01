@@ -71,27 +71,23 @@ def ocr(file):
     def get_grayscale(image):
         return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-    img = Image.open(file)
-    del file
-    img = img.save("img.jpg")
+    with Image.open(image_file) as img:
+        img.save("img.jpg")
+
     img = cv2.imread("img.jpg")
+
     custom_config = r"--oem 1 --psm 6"
-    a = pytesseract.image_to_string(get_grayscale(img), config=custom_config).split(
-        "\n"
-    )
-    for i in a:
-        if i.startswith("Drugs"):
-            drugs = i
-    pos = 0
-    for i in drugs:
-        if i == "-":
-            drugs = drugs[pos + 1 :]
-        pos += 1
-    drugs = drugs.lower().split(",")
+    ocr_text = pytesseract.image_to_string(get_grayscale(img), config=custom_config)
+
     drugs_updated = []
-    for i in drugs:
-        drugs_updated.append(i.strip())
+    drugs_line = next((line for line in ocr_text.split("\n") if line.startswith("Drugs")), None)
+    if drugs_line:
+        drugs = drugs_line.split("-")[1].lower().split(",")
+        for drug in drugs:
+            drugs_updated.append(drug.strip())
+
     return drugs_updated
+
 
 
 class PostProcess:
