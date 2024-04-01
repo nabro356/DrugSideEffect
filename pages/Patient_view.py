@@ -161,8 +161,10 @@ else:
         str: Remedies suggested by OpenAI.
         """
         openai.api_key = st.secrets["OPENAI_API_KEY"]
+
+        flat_symptoms = [item for sublist in symptoms for item in sublist]
         
-        prompt = f"Given the symptoms {', '.join(symptoms)}, provide remedies and medication suggestions."
+        prompt = f"Given the symptoms {', '.join(flat_symptoms)}, provide remedies and medication suggestions."
         response = openai.Completion.create(
             engine="davinci-codex",  # Use the appropriate engine
             prompt=prompt,
