@@ -208,7 +208,7 @@ else:
 
     ans = get_remedies_for_symptoms(symptoms_list)
     print(" Remedies include :")
-    for index, remedy in enumerate(random_remedies, start=1):
+    for index, remedy in enumerate(ans, start=1):
         print(f"{index}. {remedy}")
         
     st.markdown(
