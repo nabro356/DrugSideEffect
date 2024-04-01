@@ -68,33 +68,22 @@ file = st.file_uploader("", type=["jpg", "png"])
 
 
 def ocr(file):
-    # Open the image file
-    with Image.open(file) as img:
-        # Convert the image to RGB mode
-        rgb_img = img.convert("RGB")
-        
-        # Save the RGB image as JPEG
-        rgb_img.save("img.jpg")
+    """
+    Perform OCR on the given image and return a list of words.
+    
+    Args:
+    image_path (str): Path to the image file.
+    
+    Returns:
+    list: List of words extracted from the image.
+    """
+    # Use pytesseract to do OCR on the image
+    text = pytesseract.image_to_string(Image.open(image_path))
 
-    # Read the saved image using OpenCV
-    img = cv2.imread("img.jpg")
+    # Split the text into words and add each word to a list
+    words = text.split()
 
-    # Convert the image to grayscale
-    gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-
-    # Perform OCR on the grayscale image
-    custom_config = r"--oem 1 --psm 6"
-    ocr_text = pytesseract.image_to_string(gray_img, config=custom_config)
-
-    # Extract drug names from the OCR text
-    drugs_updated = []
-    drugs_line = next((line for line in ocr_text.split("\n") if line.lower().startswith("drugs")), None)
-    if drugs_line:
-        drugs = drugs_line.split("-")[1].lower().split(",")
-        for drug in drugs:
-            drugs_updated.append(drug.strip())
-
-    return drugs_updated
+    return words
 
 class PostProcess:
     def __init__(self) -> None:
