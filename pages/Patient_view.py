@@ -160,7 +160,7 @@ else:
         prompt = f"Given the symptoms {', '.join(flat_symptoms)}, provide remedies and medication suggestions."
     
         # Replace "YOUR_CLAUDE_API_KEY" with your actual Claude API key
-        api_key = "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"
+        api_key = "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"
         
         url = "https://claude.ai/api/complete"
         headers = {"Authorization": f"Bearer {api_key}"}
