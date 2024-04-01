@@ -96,29 +96,32 @@ def predict(drug_name):
         drugs_updated.append(i.strip())
     return drugs_updated"""
 
-import cv2
-import pytesseract
-from PIL import Image
 
 def ocr(image_file):
     def get_grayscale(image):
         return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-    with Image.open(image_file) as img:
-        img.save("img.jpg")
+    try:
+        with Image.open(image_file) as img:
+            # Convert image to RGB mode
+            rgb_image = img.convert("RGB")
+            rgb_image.save("img.jpg")
 
-    img = cv2.imread("img.jpg")
+        img = cv2.imread("img.jpg")
 
-    custom_config = r"--oem 1 --psm 6"
-    ocr_text = pytesseract.image_to_string(get_grayscale(img), config=custom_config)
+        custom_config = r"--oem 1 --psm 6"
+        ocr_text = pytesseract.image_to_string(get_grayscale(img), config=custom_config)
 
-    drugs_updated = []
-    drugs_line = next((line for line in ocr_text.split("\n") if line.startswith("Drugs")), None)
-    if drugs_line:
-        drugs = drugs_line.split("-")[1].lower().split(",")
-        for drug in drugs:
-            drugs_updated.append(drug.strip())
+        drugs_updated = []
+        drugs_line = next((line for line in ocr_text.split("\n") if line.startswith("Drugs")), None)
+        if drugs_line:
+            drugs = drugs_line.split("-")[1].lower().split(",")
+            for drug in drugs:
+                drugs_updated.append(drug.strip())
 
-    return drugs_updated
+        return drugs_updated
+    except Exception as e:
+        st.error(f"Error performing OCR: {e}")
+        return []
 
 
