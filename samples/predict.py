@@ -103,11 +103,17 @@ def ocr(image_file):
 
     try:
         with Image.open(image_file) as img:
-            # Convert image to RGB mode and discard alpha channel if it exists
+            # Convert image to RGB mode and remove alpha channel if exists
             rgb_image = img.convert("RGB")
 
-            # Save the RGB image
-            rgb_image.save("img.jpg")
+            # Create a new blank image with the same size and white background
+            new_image = Image.new("RGB", rgb_image.size, (255, 255, 255))
+            
+            # Paste the RGB image onto the blank image to remove alpha channel
+            new_image.paste(rgb_image, (0, 0), rgb_image)
+
+            # Save the new image as JPEG
+            new_image.save("img.jpg")
 
         img = cv2.imread("img.jpg")
 
@@ -125,6 +131,7 @@ def ocr(image_file):
     except Exception as e:
         st.error(f"Error performing OCR: {e}")
         return []
+
 
 
 
