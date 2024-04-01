@@ -96,6 +96,10 @@ def predict(drug_name):
         drugs_updated.append(i.strip())
     return drugs_updated"""
 
+import cv2
+import pytesseract
+from PIL import Image
+
 def ocr(image_file):
     def get_grayscale(image):
         return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -116,4 +120,5 @@ def ocr(image_file):
             drugs_updated.append(drug.strip())
 
     return drugs_updated
+
 
