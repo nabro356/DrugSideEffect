@@ -158,50 +158,6 @@ else:
 
     txt = st.text_input("")
 
-    def get_remedies_from_symptoms_dict(symptoms_dict):
-        """
-        Get remedies and medication suggestions from OpenAI API based on symptoms provided in a dictionary.
-        Args:
-        symptoms_dict (dict): Dictionary where values are lists of symptoms.
-        Returns:
-        dict: Dictionary mapping symptoms to remedies and medication suggestions.
-        """
-        # Extract all symptoms from the dictionary values and convert them into a single list
-        all_symptoms = [symptom for symptoms_list in symptoms_dict.values() for symptom in symptoms_list]
-        # Call the original get_remedies function with the combined list of symptoms
-        remedies = get_remedies(all_symptoms)
-        # Return the remedies
-        return remedies
-
-    remedies = get_remedies_from_symptoms_dict(symptoms_dict)
-
-    def get_remedies(symptoms):
-    """
-    Generate remedies and medication suggestions from OpenAI API based on symptoms.
-
-    Args:
-    symptoms (list): List of symptoms.
-
-    Returns:
-    None
-    """
-        openai.api_key = st.secrets["OPENAI_API_KEY"]  # Assuming you've stored your OpenAI API key as a Streamlit secret
-        prompt = f"Given the symptoms {', '.join(symptoms)}, provide remedies and medication suggestions."
-        response = openai.Completion.create(
-            engine="davinci",
-            prompt=prompt,
-            temperature=0.5,
-            max_tokens=100,
-            top_p=1.0,
-            frequency_penalty=0.0,
-            presence_penalty=0.0,
-            stop=["\n"]
-        )
-        remedies = response.choices[0].text.strip()
-        # Perform any necessary actions with the generated remedies
-        print("Remedies and medication suggestions:", remedies)
-
-    get_remedies(remedies)
 
     if st.button("Send Summary"):
         # check that txt contains a valid phone number
