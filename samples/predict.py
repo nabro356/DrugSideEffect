@@ -96,7 +96,7 @@ def predict(drug_name):
         drugs_updated.append(i.strip())
     return drugs_updated"""
 
-"""def ocr(image_file):
+def ocr(file):
     def get_grayscale(image):
         return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
@@ -122,9 +122,9 @@ def predict(drug_name):
         return drugs_updated
     except Exception as e:
         st.error(f"Error performing OCR: {e}")
-        return []"""
+        return []
 
-def ocr(image_path):
+"""def ocr(image_path):
     try:
         # Read the image using OpenCV
         img = cv2.imread(image_path)
@@ -136,4 +136,16 @@ def ocr(image_path):
         return text
     except Exception as e:
         print("Error occurred:", e)
-        return []
+        return []"""
+
+"""def ocr(file):
+    # Open the image file
+    with Image.open(image_path) as img:
+        # Use pytesseract to do OCR on the image
+        text = pytesseract.image_to_string(img)
+
+        # Split the text into words
+        words = text.split()
+
+        return words"""
+
