@@ -168,12 +168,11 @@ else:
         
         response = requests.post(url, headers=headers, json=payload)
         data = response.json()
+
+        # Convert JSON data to string
+        json_string = json.dumps(data)
     
-        # Extract the generated text from the response JSON
-        
-        remedies = data["choices"][0]["text"].strip()
-    
-        return remedies
+        return json_string
         
     get_remedies_for_symptoms(symptoms_list)
         
