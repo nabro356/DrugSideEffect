@@ -96,7 +96,7 @@ def predict(drug_name):
         drugs_updated.append(i.strip())
     return drugs_updated"""
 
-def ocr(image_file):
+"""def ocr(image_file):
     def get_grayscale(image):
         return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
@@ -119,8 +119,39 @@ def ocr(image_file):
             drugs = drugs_line.split("-")[1].lower().split(",")
             for drug in drugs:
                 drugs_updated.append(drug.strip())
-
         return drugs_updated
     except Exception as e:
         st.error(f"Error performing OCR: {e}")
+        return []"""
+
+import cv2
+import pytesseract
+
+def ocr(image_file):
+    try:
+        # Read the image using OpenCV
+        img = cv2.imread(image_file)
+
+        # Convert the image to grayscale
+        gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+        # Apply thresholding to preprocess the image
+        _, threshold_img = cv2.threshold(gray_img, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
+
+        # Perform OCR on the preprocessed image
+        ocr_text = pytesseract.image_to_string(threshold_img)
+
+        # Split the OCR text by lines and extract drug names
+        drugs_updated = []
+        for line in ocr_text.split("\n"):
+            if line.lower().startswith("drugs"):
+                drugs = line.split("-")[1].lower().split(",")
+                drugs_updated.extend(drug.strip() for drug in drugs)
+
+        return drugs_updated
+    except Exception as e:
+        print(f"Error performing OCR: {e}")
         return []
+
+
+
