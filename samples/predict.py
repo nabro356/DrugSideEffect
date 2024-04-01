@@ -96,17 +96,16 @@ def predict(drug_name):
         drugs_updated.append(i.strip())
     return drugs_updated"""
 
-
 def ocr(image_file):
     def get_grayscale(image):
         return cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
     try:
         with Image.open(image_file) as img:
-            # Convert image to RGB mode and discard alpha channel if it exists
+            # Convert image to RGB mode
             rgb_image = img.convert("RGB")
 
-            # Save the RGB image
+            # Save the RGB image as JPEG
             rgb_image.save("img.jpg")
 
         img = cv2.imread("img.jpg")
@@ -125,7 +124,3 @@ def ocr(image_file):
     except Exception as e:
         st.error(f"Error performing OCR: {e}")
         return []
-
-
-
-
