@@ -186,8 +186,8 @@ else:
         response = requests.post(url, headers=headers, json=payload)
         data = response.json()
         # Convert JSON data to string
-        json_string = json.dumps(jdata)
-        return data
+        json_string = json.dumps(data)
+        return json_string
         
         '''if "choices" in data and data["choices"]:
             remedies = data["choices"][0]["text"].strip()
