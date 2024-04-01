@@ -154,10 +154,6 @@ else:
 
     def get_remedies_for_symptoms(symptoms):
         
-        # Flatten the list of lists into a single list of symptoms
-        flat_symptoms = [item for sublist in symptoms for item in sublist]
-
-
         print(f"Given the symptoms, We are provide remedies and medication suggestions.")
         combined_remedies = [
             "Stay hydrated by drinking plenty of water throughout the day to support overall health and well-being.",
@@ -208,13 +204,12 @@ else:
         ]
 
         selected_remedies = random.sample(combined_remedies, 4)
+        return selected_remedies
 
-        # Print the selected remedies
-        print("Randomly Selected Remedies:")
-        for index, remedy in enumerate(selected_remedies, start=1):
-            print(f"{index}. {remedy}")
-
-    get_remedies_for_symptoms(symptoms_list)
+    ans = get_remedies_for_symptoms(symptoms_list)
+    print(" Remedies include :")
+    for index, remedy in enumerate(random_remedies, start=1):
+        print(f"{index}. {remedy}")
         
     st.markdown(
         f'<h1 style="color:#000000;font-size:18px;">{"Mobile number, to receive a summary:"}</h1>',
