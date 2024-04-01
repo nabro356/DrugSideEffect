@@ -166,7 +166,7 @@ else:
         
         prompt = f"Given the symptoms {', '.join(flat_symptoms)}, provide remedies and medication suggestions."
         response = openai.Completion.create(
-            engine="davinci-codex",  # Use the appropriate engine
+            model="davinci-codex",  # Use the appropriate engine
             prompt=prompt,
             max_tokens=100,
             temperature=0.5,
