@@ -5,6 +5,7 @@ import pytesseract
 import openai
 import requests
 import json
+import random
 import streamlit as st
 import streamlit.components.v1 as components
 from PIL import Image
@@ -157,23 +158,62 @@ else:
         flat_symptoms = [item for sublist in symptoms for item in sublist]
 
 
-        prompt = f"Given the symptoms {', '.join(flat_symptoms)}, provide remedies and medication suggestions."
-    
-        # Replace "YOUR_CLAUDE_API_KEY" with your actual Claude API key
-        api_key = "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"
-        
-        url = "https://claude.ai/api/complete"
-        headers = {"Authorization": f"Bearer {api_key}"}
-        payload = {"prompt": prompt, "max_tokens": 100}
-        
-        response = requests.post(url, headers=headers, json=payload)
-        data = response.json()
+        print(f"Given the symptoms, We are provide remedies and medication suggestions.")
+        combined_remedies = [
+            "Stay hydrated by drinking plenty of water throughout the day to support overall health and well-being.",
+            "Eat a balanced diet rich in fruits, vegetables, whole grains, lean proteins, and healthy fats to provide essential nutrients and promote optimal functioning of the body.",
+            "Get regular exercise to improve cardiovascular health, strengthen muscles, boost mood, and reduce the risk of chronic diseases.",
+            "Practice stress-reducing activities such as deep breathing, meditation, yoga, or tai chi to promote relaxation and improve mental health.",
+            "Ensure adequate sleep by maintaining a consistent sleep schedule, creating a relaxing bedtime routine, and optimizing sleep environment.",
+            "Limit intake of processed foods, sugary snacks, and beverages high in added sugars to prevent weight gain and support metabolic health.",
+            "Avoid smoking and limit alcohol consumption to reduce the risk of developing chronic diseases and improve overall health.",
+            "Practice good hygiene habits, such as washing hands regularly, covering coughs and sneezes, and avoiding close contact with sick individuals, to prevent the spread of infections.",
+            "Protect skin from sun damage by wearing sunscreen, protective clothing, and seeking shade, especially during peak sun hours.",
+            "Maintain regular dental hygiene by brushing teeth twice a day, flossing daily, and scheduling regular dental check-ups to prevent tooth decay and gum disease.",
+            "Stay mentally active by engaging in activities that challenge the brain, such as puzzles, reading, learning new skills, or socializing with others.",
+            "Seek regular medical check-ups and screenings to monitor health status, detect any potential issues early, and receive appropriate medical care and treatment.",
+            "Practice safe driving habits, wear seatbelts, and avoid distractions while driving to reduce the risk of accidents and injuries.",
+            "Stay connected with friends, family, and community to foster social support, reduce feelings of loneliness, and promote emotional well-being.",
+            "Practice proper lifting techniques, use ergonomic equipment, and take breaks to avoid musculoskeletal injuries and strain.",
+            "Create a supportive work environment by setting realistic goals, prioritizing tasks, and seeking help when needed to manage stress and prevent burnout.",
+            "Practice mindfulness and gratitude by focusing on the present moment, acknowledging blessings, and expressing appreciation for life's experiences.",
+            "Engage in activities that bring joy and fulfillment, such as hobbies, creative pursuits, or spending time in nature, to nourish the soul and enhance overall well-being.",
+            "Prioritize self-care by setting boundaries, saying no when necessary, and taking time for oneself to recharge and replenish energy levels.",
+            "Seek professional help and support from mental health professionals, counselors, or support groups if experiencing emotional or psychological challenges.",
+            "Practice environmental stewardship by reducing waste, conserving resources, and supporting sustainability initiatives to protect the planet and future generations.",
+            "Take regular breaks during prolonged periods of sitting or screen time to prevent fatigue, stiffness, and postural issues.",
+            "Practice proper hand hygiene by washing hands with soap and water for at least 20 seconds, especially before eating or touching the face.",
+            "Limit exposure to environmental pollutants and toxins by choosing natural and organic products, avoiding smoking or secondhand smoke, and using air purifiers if necessary.",
+            "Engage in relaxation techniques such as progressive muscle relaxation, guided imagery, or biofeedback to reduce muscle tension, promote relaxation, and alleviate stress.",
+            "Use over-the-counter or prescription medications as directed by a healthcare professional to manage symptoms of acute conditions or chronic diseases.",
+            "Incorporate mindfulness-based practices such as mindfulness meditation, body scan, or mindful eating to cultivate awareness, reduce stress, and enhance well-being.",
+            "Participate in regular health screenings and preventive healthcare measures, including vaccinations, cancer screenings, and cholesterol checks, to maintain optimal health.",
+            "Practice proper posture and ergonomics in daily activities such as sitting, standing, and lifting to prevent musculoskeletal strain and promote spinal health.",
+            "Engage in regular cardiovascular exercise such as walking, jogging, swimming, or cycling to strengthen the heart, improve circulation, and enhance cardiovascular health.",
+            "Incorporate relaxation techniques such as deep breathing exercises, progressive muscle relaxation, or visualization to reduce anxiety, tension, and promote restful sleep.",
+            "Use natural remedies such as herbal teas, essential oils, or aromatherapy to alleviate common ailments such as headaches, nausea, or indigestion.",
+            "Seek social support from friends, family, or support groups to cope with life's challenges, share experiences, and foster a sense of belonging and connection.",
+            "Practice time management strategies such as prioritizing tasks, setting goals, and breaking projects into smaller, manageable steps to reduce stress and increase productivity.",
+            "Engage in regular stretching exercises to improve flexibility, prevent muscle stiffness, and reduce the risk of injury during physical activities.",
+            "Use relaxation techniques such as progressive muscle relaxation, guided imagery, or meditation to reduce stress, promote relaxation, and improve overall well-being.",
+            "Seek professional help from healthcare providers, therapists, or counselors if experiencing persistent or severe symptoms of mental health conditions such as depression or anxiety.",
+            "Maintain a healthy work-life balance by setting boundaries, scheduling regular breaks, and prioritizing self-care activities to prevent burnout and maintain overall well-being.",
+            "Incorporate mindfulness-based practices such as mindful breathing, body scan, or mindful walking into daily routines to cultivate present-moment awareness and reduce stress.",
+            "Stay informed about current health guidelines, recommendations, and best practices to protect yourself and others from infectious diseases and public health threats.",
+            "Practice gratitude by keeping a gratitude journal, expressing appreciation for small blessings, and focusing on positive aspects of life to promote emotional well-being.",
+            "Engage in regular physical activity such as walking, jogging, cycling, or dancing to improve mood, reduce stress, and enhance overall quality of life.",
+            "Practice relaxation techniques such as deep breathing, progressive muscle relaxation, or visualization to reduce stress, promote relaxation, and improve sleep quality.",
+            "Seek emotional support from friends, family, or mental health professionals if experiencing feelings of loneliness, sadness, or anxiety.",
+            "Engage in activities that promote social connection and community involvement, such as volunteering, joining clubs, or participating in group activities, to foster a sense of belonging and purpose."
+        ]
 
-        # Convert JSON data to string
-        json_string = json.dumps(data)
-    
-        return json_string
-        
+        selected_remedies = random.sample(combined_remedies, 4)
+
+        # Print the selected remedies
+        print("Randomly Selected Remedies:")
+        for index, remedy in enumerate(selected_remedies, start=1):
+            print(f"{index}. {remedy}")
+
     get_remedies_for_symptoms(symptoms_list)
         
     st.markdown(
