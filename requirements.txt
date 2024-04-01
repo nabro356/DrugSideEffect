@@ -7,4 +7,4 @@ twilio
 streamlit
 pathlib
 graphviz
-openai
+openai==0.28
