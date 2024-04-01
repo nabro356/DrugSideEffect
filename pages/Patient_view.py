@@ -168,10 +168,13 @@ else:
         
         response = requests.post(url, headers=headers, json=payload)
         data = response.json()
-        
+    
         # Extract the generated text from the response JSON
-        remedies = data["text"].strip()
-        
+        if "choices" in data and data["choices"]:
+            remedies = data["choices"][0]["text"].strip()
+        else:
+            remedies = "No remedies found."
+    
         return remedies
         
     get_remedies_for_symptoms(symptoms_list)
