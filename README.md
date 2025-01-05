@@ -1,4 +1,4 @@
-<h1>Drug Side Effect Prediction using Grapah Attention Neural Networks</h1>
+<h1>Drug Side Effect Prediction using Graph Attention Neural Networks and Streamlit Portal</h1>
 This project uses Graph Attention Neural Networks (GANN) to predict the side effects of drugs being prescribed to a patient based on their medical history and previous and current medications. This model was developed by training the GANN on a dataset from Kaggle titled "Drugs, Side Effects, and Medical Conditions." It aims to assist in identifying potential side effects of medications based on various attributes.
 
 <h2>Key Features</h2>
